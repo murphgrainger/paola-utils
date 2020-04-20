@@ -1,7 +1,6 @@
 const {
   validateUser,
   isUserOnTeam,
-  getAllTeamMembers,
   addUserToTeam,
   removeUserFromTeam
 } = require('./');
@@ -28,17 +27,14 @@ test('isUserOnTeam: Should return false if user is not on team', async () => {
     expect(userOnTeam).toBe(false);
 });
 
-test('getAllTeamMembers: Should return true if user is on team', async () => {
-    const userOnTeam = await getAllTeamMembers("murphgrainger", GITHUB_TEAM_HANDLE);
-    expect(userOnTeam).toBe(true);
-});
+// need to turn these tests below into mock requests
 
-test('getAllTeamMembers: Should return false if user is not on team', async () => {
-    const userOnTeam = await getAllTeamMembers("fas**d2235", GITHUB_TEAM_HANDLE);
-    expect(userOnTeam).toBe(false);
-});
-
-test('addUserToTeam: Should return 200 status if successful', async () => {
-    const addedUser = await addUserToTeam("murphgrainger", GITHUB_TEAM_HANDLE);
-    expect(addedUser).toBe(200);
-});
+// test('addUserToTeam: Should return 200 status if successful', async () => {
+//     const addedUser = await addUserToTeam("murphgrainger", GITHUB_TEAM_HANDLE);
+//     expect(addedUser).toBe(200);
+// });
+//
+// test('removeUserFromTeam: Should return 204 status if successful', async () => {
+//     const removeUser = await removeUserFromTeam("murphgrainger", GITHUB_TEAM_HANDLE);
+//     expect(removeUser).toBe(204);
+// });
