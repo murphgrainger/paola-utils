@@ -54,8 +54,7 @@ exports.getAllTeamMembers = async (handle, team) => {
 exports.addUserToTeam =  async (handle, team) => {
   try {
     const response = await fetch(`${GITHUB_API_TEAMS}/${team}/memberships/${handle}`, { method: "PUT" }, headers)
-    const res = await response.json();
-    return res.status === 200;
+    return response.status;
   }
   catch (error) {
     return error;
@@ -63,8 +62,14 @@ exports.addUserToTeam =  async (handle, team) => {
 };
 
 // Delete a handle from a team
-exports.removeUserFromTeam = async () => {
-
+exports.removeUserFromTeam = async (handle, team) => {
+  try {
+    const response = await fetch(`${GITHUB_API_TEAMS}/${team}/memberships/${handle}`, { method: "DELETE" }, headers)
+    return response.status;
+  }
+  catch (error) {
+    return error;
+  }
 };
 
 // Optional: Create a new GitHub account
