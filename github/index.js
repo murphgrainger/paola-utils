@@ -1,16 +1,14 @@
 const fetch = require("node-fetch");
 const { GITHUB_API_USERS, GITHUB_API_TEAMS } = require('../constants');
-const { GITHUB_API_TOKEN } = require('../config');
+const { GITHUB_API_TOKEN, GITHUB_USERNAME } = require('../config');
 
 // ------------------------------
 // GitHub API Integrations
 // ------------------------------
 
 const headers = {
-  headers: {
-  "Authorization": `token ${GITHUB_API_TOKEN}`
+  Authorization: `token ${GITHUB_API_TOKEN}`
   }
-}
 
 // Validate a github handle (verify it exists) - return boolean
 exports.validateUser = async (handle) => {
@@ -36,24 +34,10 @@ exports.isUserOnTeam = async (handle, team) => {
   }
 };
 
-// Read a github team’s members to determine if handle is in team
-// do you want to return all team members or boolean if person is on team?
-exports.getAllTeamMembers = async (handle, team) => {
-  try {
-    const response = await fetch(`${GITHUB_API_TEAMS}/${team}/members`, headers)
-    const res = await response.json();
-    const isOnTeam = res.filter(usr => usr.login === handle)
-    return isOnTeam.length > 0;
-  }
-  catch (error) {
-    return (error)
-  }
-};
-
 // Add a github handle to a github team
 exports.addUserToTeam =  async (handle, team) => {
   try {
-    const response = await fetch(`${GITHUB_API_TEAMS}/${team}/memberships/${handle}`, { method: "PUT" }, headers)
+    const response = await fetch(`${GITHUB_API_TEAMS}/${team}/memberships/${handle}`, { method: "PUT", headers})
     return response.status;
   }
   catch (error) {
@@ -64,7 +48,7 @@ exports.addUserToTeam =  async (handle, team) => {
 // Delete a handle from a team
 exports.removeUserFromTeam = async (handle, team) => {
   try {
-    const response = await fetch(`${GITHUB_API_TEAMS}/${team}/memberships/${handle}`, { method: "DELETE" }, headers)
+    const response = await fetch(`${GITHUB_API_TEAMS}/${team}/memberships/${handle}`, { method: "DELETE", headers})
     return response.status;
   }
   catch (error) {
@@ -74,5 +58,5 @@ exports.removeUserFromTeam = async (handle, team) => {
 
 // Optional: Create a new GitHub account
 exports.createNewUser = async () => {
-
+  // While you can add users to an organization you've created, you can't create personal user accounts on behalf of another person.
 };
