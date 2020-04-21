@@ -14,8 +14,7 @@ const headers = {
 exports.validateUser = async (handle) => {
   try {
     const response = await fetch(`${GITHUB_API_USERS}/${handle}`, headers);
-    const res = await response;
-    return res.status === 200;
+    return response.status === 200;
   }
   catch (error) {
     return error;
@@ -26,8 +25,7 @@ exports.validateUser = async (handle) => {
 exports.isUserOnTeam = async (handle, team) => {
   try {
     const response = await fetch(`${GITHUB_API_TEAMS}/${team}/memberships/${handle}`, headers)
-    const res = await response.json();
-    return res.state === "active" || res.state === "pending";
+    return response.status === 200;
   }
   catch (error) {
     return error;
@@ -38,7 +36,7 @@ exports.isUserOnTeam = async (handle, team) => {
 exports.addUserToTeam =  async (handle, team) => {
   try {
     const response = await fetch(`${GITHUB_API_TEAMS}/${team}/memberships/${handle}`, { method: "PUT", headers})
-    return response.status;
+    return response.status === 200;
   }
   catch (error) {
     return error;
@@ -49,14 +47,9 @@ exports.addUserToTeam =  async (handle, team) => {
 exports.removeUserFromTeam = async (handle, team) => {
   try {
     const response = await fetch(`${GITHUB_API_TEAMS}/${team}/memberships/${handle}`, { method: "DELETE", headers})
-    return response.status;
+    return response.status === 204;
   }
   catch (error) {
     return error;
   }
-};
-
-// Optional: Create a new GitHub account
-exports.createNewUser = async () => {
-  // While you can add users to an organization you've created, you can't create personal user accounts on behalf of another person.
 };
