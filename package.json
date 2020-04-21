@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/hackreactor/paola-utils#readme",
   "dependencies": {
+    "jsforce": "^1.9.3",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
