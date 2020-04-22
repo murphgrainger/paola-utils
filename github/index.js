@@ -13,7 +13,7 @@ const headers = {
 // Validate a github handle (verify it exists) - return boolean
 exports.validateUser = async (handle) => {
   try {
-    const response = await fetch(`${GITHUB_API_USERS}/${handle}`, headers);
+    const response = await fetch(`${GITHUB_API_USERS}/${handle}`, {headers:headers});
     return response.status === 200;
   }
   catch (error) {
