@@ -54,16 +54,15 @@ describe('isUserOnTeam', () => {
 })
 
 describe('addUserToTeam', () => {
+  test('Should return false if user does not exist', async () => {
+    const addedUser = await addUserToTeam(GITHUB_INVALID_USER, GITHUB_TEAM_HANDLE);
+    expect(addedUser).toBe(false);
+  });
+
   test('Should return true if successfully added user', async () => {
     await _removeUser();
     const addedUser = await addUserToTeam(GITHUB_TEST_USER, GITHUB_TEAM_HANDLE);
     expect(addedUser).toBe(true);
-  });
-
-  test('Should return false if user does not exist', async () => {
-    await _removeUser();
-    const addedUser = await addUserToTeam(GITHUB_INVALID_USER, GITHUB_TEAM_HANDLE);
-    expect(addedUser).toBe(false);
   });
 })
 
@@ -80,9 +79,9 @@ describe('removeUserFromTeam', () => {
 })
 
 function _addUser() {
-  return fetch(`${GITHUB_API_TEAMS}/${GITHUB_TEAM_HANDLE}/memberships/${GITHUB_TEST_USER}`, { method: "PUT", HEADERS})
+  return fetch(`${GITHUB_API_TEAMS}/${GITHUB_TEAM_HANDLE}/memberships/${GITHUB_TEST_USER}`, { method: "PUT", headers:HEADERS})
 }
 
 function _removeUser() {
-  return fetch(`${GITHUB_API_TEAMS}/${GITHUB_TEAM_HANDLE}/memberships/${GITHUB_TEST_USER}`, { method: "DELETE", HEADERS})
+  return fetch(`${GITHUB_API_TEAMS}/${GITHUB_TEAM_HANDLE}/memberships/${GITHUB_TEST_USER}`, { method: "DELETE", headers:HEADERS})
 }
