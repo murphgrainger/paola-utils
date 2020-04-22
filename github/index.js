@@ -24,7 +24,7 @@ exports.validateUser = async (handle) => {
 // Determine if handle is member of provided team (one version)
 exports.isUserOnTeam = async (handle, team) => {
   try {
-    const response = await fetch(`${GITHUB_API_TEAMS}/${team}/memberships/${handle}`, headers)
+    const response = await fetch(`${GITHUB_API_TEAMS}/${team}/memberships/${handle}`, {headers:headers})
     return response.status === 200;
   }
   catch (error) {
@@ -35,7 +35,7 @@ exports.isUserOnTeam = async (handle, team) => {
 // Add a github handle to a github team
 exports.addUserToTeam =  async (handle, team) => {
   try {
-    const response = await fetch(`${GITHUB_API_TEAMS}/${team}/memberships/${handle}`, { method: "PUT", headers})
+    const response = await fetch(`${GITHUB_API_TEAMS}/${team}/memberships/${handle}`, { method: "PUT", headers:headers})
     return response.status === 200;
   }
   catch (error) {
@@ -46,7 +46,7 @@ exports.addUserToTeam =  async (handle, team) => {
 // Delete a handle from a team
 exports.removeUserFromTeam = async (handle, team) => {
   try {
-    const response = await fetch(`${GITHUB_API_TEAMS}/${team}/memberships/${handle}`, { method: "DELETE", headers})
+    const response = await fetch(`${GITHUB_API_TEAMS}/${team}/memberships/${handle}`, { method: "DELETE", headers:headers})
     return response.status === 204;
   }
   catch (error) {
