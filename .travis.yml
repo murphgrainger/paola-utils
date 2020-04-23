@@ -1,10 +1,11 @@
 language: node_js
-node_js: "node"
-# services:
-  # -
+node_js: node
 cache:
   directories:
-    - "node_modules"
+  - node_modules
 branches:
   only:
-    - master
+  - master
+env:
+  global:
+    secure: xIk5VGC4sx6zrVFsFQ4BVItsWqZypCzJ3/6kxKghToguyrYei5hnQlGKOavPA2BzdYazV4tq8gfpnZkroHIzOAKZubIH1JtmMpUrp3LtosRZ68B7htmxNA5Av7MsUfWTvMoZREggYVsHuOYwGVSJ3SZZRAfcklbyGYgUu1ahcnuLLhwOcAyjN7Y648CduIKucEQDLaQlvhMC2DRVzEAV8NhNss1N97iDzduwY1Jvz1zViCPcnID8fEHzfSRmsnAGG2beEu7CDdRj47zBH2+5Mjm5FwqrnDhlK+z37s0So/hdvN9Q+6bgiYOChRfVhPUh+70i6GpQ3sE2Eh1DLOO4FlGw/98anFwntB1L9dTWHb1kwdoxSvxf9RoJqWlytVg62gHldUfcn27Kb1xbF7eawJevycairFhiTJ2hMLnnAXKApo6KB4f9sXo/xjd02vljWEgpJdl94cOWfvcAL6uSWKcNMZX8mYXESNBfNUM0SBZ6jbNyuvOlVoHXQfbQxhUQo2H2nWQljjuj5McX5BSba97RH0ZxoR2qVaivYJZeET1GL+4b+LBzU9GCSPFcLZ7i2IlP2bHCY2tAy2Nki575wzjMKGqnYE1aa2VbGudOmTnrvrmze4P/OIosSS7cj7A1rYwEIkNULugRcNGnJDkvB0GltElpXLCRumfRUgVBIzk=

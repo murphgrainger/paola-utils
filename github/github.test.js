@@ -1,3 +1,4 @@
+require('dotenv').config();
 const fetch = require('node-fetch');
 const { GITHUB_API_TEAMS } = require('../constants');
 const {
@@ -6,12 +7,11 @@ const {
   addUserToTeam,
   removeUserFromTeam,
 } = require('.');
-const { GITHUB_API_TOKEN } = require('../config');
 
 const GITHUB_TEAM_HANDLE = 'paola-test-team';
 const GITHUB_TEST_USER = 'murphpaolatestuser';
 const GITHUB_INVALID_USER = 'notarealuser***';
-const HEADERS = { Authorization: `token ${GITHUB_API_TOKEN}` };
+const HEADERS = { Authorization: `token ${process.env.GITHUB_ACCESS_TOKEN}` };
 
 function addUser() {
   return fetch(`${GITHUB_API_TEAMS}/${GITHUB_TEAM_HANDLE}/memberships/${GITHUB_TEST_USER}`, { method: 'PUT', headers: HEADERS });

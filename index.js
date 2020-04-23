@@ -1,3 +1,4 @@
+require('dotenv').config();
 const GSheets = require('./googleSheets');
 const GGroups = require('./googleGroups');
 const GMail = require('./googleMail');

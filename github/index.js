@@ -1,12 +1,11 @@
 const fetch = require('node-fetch');
 const { GITHUB_API_USERS, GITHUB_API_TEAMS } = require('../constants');
-const { GITHUB_API_TOKEN } = require('../config');
 
 // ------------------------------
 // GitHub API Integrations
 // ------------------------------
 
-const headers = { Authorization: `token ${GITHUB_API_TOKEN}` };
+const headers = { Authorization: `token ${process.env.GITHUB_ACCESS_TOKEN}` };
 
 // Validate a github handle (verify it exists) - return boolean
 exports.validateUser = async (handle) => {
