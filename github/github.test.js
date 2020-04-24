@@ -12,7 +12,7 @@ const GITHUB_TEAM_HANDLE = 'paola-test-team';
 const GITHUB_TEST_USER = 'murphpaolatestuser';
 const GITHUB_INVALID_USER = 'notarealuser***';
 const HEADERS = { Authorization: `token ${process.env.GITHUB_ACCESS_TOKEN}` };
-
+console.log(process.env);
 function addUser() {
   return fetch(`${GITHUB_API_TEAMS}/${GITHUB_TEAM_HANDLE}/memberships/${GITHUB_TEST_USER}`, { method: 'PUT', headers: HEADERS });
 }
