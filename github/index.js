@@ -1,5 +1,9 @@
 const fetch = require('node-fetch');
-const { GITHUB_API_USERS, GITHUB_API_TEAMS } = require('../constants');
+const {
+  GITHUB_API_USERS,
+  GITHUB_API_TEAMS,
+  GITHUB_API_REPOS,
+} = require('../constants');
 
 // ------------------------------
 // GitHub API Integrations
@@ -94,6 +98,18 @@ exports.removeUsersFromTeam = async (usernames, team) => {
     });
     const result = await Promise.all(promises);
     return result.every((status) => status === 204);
+  } catch (error) {
+    return error.message;
+  }
+};
+
+exports.getPullRequestsbyUser = async (username, repo, branch) => {
+  try {
+    const response = await fetch(
+      `${GITHUB_API_REPOS}/${repo}/pulls?state=all&head=${username}:${branch}`,
+      { headers },
+    );
+    return response.json();
   } catch (error) {
     return error.message;
   }

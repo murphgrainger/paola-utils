@@ -7,8 +7,6 @@ const GitHub = require('./github');
 const Learn = require('./learn');
 const Slack = require('./slack');
 
-
-// GGroups.addStudentToGroup('paola-sandbox@galvanize.com', 'paola@galvanize.com')
 // ------------------------------
 // API Integrations
 // ------------------------------
