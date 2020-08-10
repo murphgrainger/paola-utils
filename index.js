@@ -7,8 +7,6 @@ const GitHub = require('./github');
 const Learn = require('./learn');
 const Slack = require('./slack');
 
-GitHub.createTeam('testing-paola-810')
-
 // ------------------------------
 // API Integrations
 // ------------------------------

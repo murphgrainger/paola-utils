@@ -64,11 +64,12 @@ exports.removeUserFromTeam = async (username, team) => {
 };
 
 // Batch add usernames to a GitHub team
-exports.addUsersToTeam = async (usernames, team) => {
+exports.addUsersToTeam = async (usernames, team, role) => {
   try {
+    const roleQuery = role ? `role=${role}` : '';
     const promises = usernames.map(async (username) => {
       const addUser = await fetch(
-        `${GITHUB_API_TEAMS}/${team}/memberships/${username}`,
+        `${GITHUB_API_TEAMS}/${team}/memberships/${username}?${roleQuery}`,
         { method: 'PUT', headers },
       );
       if (addUser.status !== 200) {
