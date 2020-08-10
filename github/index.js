@@ -114,3 +114,19 @@ exports.getPullRequestsbyUser = async (username, repo, branch) => {
     return error.message;
   }
 };
+
+exports.createTeam = async (teamName) => {
+  try {
+    const data = {
+      name: teamName,
+      privacy: 'secret',
+    };
+    const response = await fetch(
+      `${GITHUB_API_TEAMS}`,
+      { method: 'POST', headers, body: JSON.stringify(data) },
+    );
+    return response.status === 200;
+  } catch (error) {
+    return error;
+  }
+};
