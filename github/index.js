@@ -104,6 +104,18 @@ exports.removeUsersFromTeam = async (usernames, team) => {
   }
 };
 
+exports.getPullRequestsbyRepo = async (repo) => {
+  try {
+    const response = await fetch(
+      `${GITHUB_API_REPOS}/${repo}/pulls?state=all`,
+      { headers },
+    );
+    return response.json();
+  } catch (error) {
+    return error.message;
+  }
+};
+
 exports.getPullRequestsbyUser = async (username, repo, branch) => {
   try {
     const response = await fetch(
