@@ -10,6 +10,7 @@ const {
   removeUsersFromTeam,
   getPullRequestsbyRepo,
   getPullRequestsbyUser,
+  createTeam,
 } = require('.');
 
 const GITHUB_TEAM_USERNAME = 'paola-test-team';
@@ -99,7 +100,7 @@ describe('addUsersToTeam', () => {
     expect(usersWereAdded).toBe(true);
   });
 
-  test('Should return an errror if at least one user could not be added', async () => {
+  test('Should return an error if at least one user could not be added', async () => {
     const usersWereAdded = await addUsersToTeam(['anthonypecchillo', 'murphgrainger***'], GITHUB_TEAM_USERNAME);
     expect(usersWereAdded).toContain('Error adding');
   });
@@ -111,7 +112,7 @@ describe('removeUsersFromTeam', () => {
     expect(usersWereRemoved).toBe(true);
   });
 
-  test('Should return an errror if at least one user could not be removed', async () => {
+  test('Should return an error if at least one user could not be removed', async () => {
     const usersWereRemoved = await removeUsersFromTeam(['anthonypecchillo', 'murphgrainger***'], GITHUB_TEAM_USERNAME);
     expect(usersWereRemoved).toContain('Error removing');
   });
@@ -156,5 +157,17 @@ describe('getPullRequestsbyUser', () => {
       GITHUB_TEST_BRANCH,
     );
     expect(pullRequests).toHaveLength(0);
+  });
+});
+
+describe('createTeam', () => {
+  test('Should return true if GitHub team was successfully created', async () => {
+    const createdTeam = await createTeam('paola-test-team');
+    expect(createdTeam).toBe(true);
+  });
+
+  test('Should return an error if GitHub team already exists', async () => {
+    const createdTeam = await createTeam('paola-test-team');
+    expect(createdTeam).toContain('Name must be unique for this org');
   });
 });

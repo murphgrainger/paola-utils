@@ -142,8 +142,10 @@ exports.createTeam = async (teamName) => {
       `${GITHUB_API_TEAMS}`,
       { method: 'POST', headers, body: JSON.stringify(data) },
     );
+    const res = await response.json();
+    if (res.errors) throw new Error(res.errors[0].message);
     return response.status === 200;
   } catch (error) {
-    return error;
+    return error.message;
   }
 };
