@@ -1,5 +1,9 @@
 const fetch = require('node-fetch');
-const { GITHUB_API_USERS, GITHUB_API_TEAMS } = require('../constants');
+const {
+  GITHUB_API_USERS,
+  GITHUB_API_TEAMS,
+  GITHUB_API_REPOS,
+} = require('../constants');
 
 // ------------------------------
 // GitHub API Integrations
@@ -60,11 +64,12 @@ exports.removeUserFromTeam = async (username, team) => {
 };
 
 // Batch add usernames to a GitHub team
-exports.addUsersToTeam = async (usernames, team) => {
+exports.addUsersToTeam = async (usernames, team, role) => {
   try {
+    const roleQuery = role ? `role=${role}` : '';
     const promises = usernames.map(async (username) => {
       const addUser = await fetch(
-        `${GITHUB_API_TEAMS}/${team}/memberships/${username}`,
+        `${GITHUB_API_TEAMS}/${team}/memberships/${username}?${roleQuery}`,
         { method: 'PUT', headers },
       );
       if (addUser.status !== 200) {
@@ -96,5 +101,33 @@ exports.removeUsersFromTeam = async (usernames, team) => {
     return result.every((status) => status === 204);
   } catch (error) {
     return error.message;
+  }
+};
+
+exports.getPullRequestsbyUser = async (username, repo, branch) => {
+  try {
+    const response = await fetch(
+      `${GITHUB_API_REPOS}/${repo}/pulls?state=all&head=${username}:${branch}`,
+      { headers },
+    );
+    return response.json();
+  } catch (error) {
+    return error.message;
+  }
+};
+
+exports.createTeam = async (teamName) => {
+  try {
+    const data = {
+      name: teamName,
+      privacy: 'secret',
+    };
+    const response = await fetch(
+      `${GITHUB_API_TEAMS}`,
+      { method: 'POST', headers, body: JSON.stringify(data) },
+    );
+    return response.status === 200;
+  } catch (error) {
+    return error;
   }
 };

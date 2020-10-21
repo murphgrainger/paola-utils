@@ -1,6 +1,7 @@
 module.exports = {
   GITHUB_API_USERS: 'https://api.github.com/users',
   GITHUB_API_TEAMS: 'https://api.github.com/orgs/hackreactor/teams',
+  GITHUB_API_REPOS: 'https://api.github.com/repos/hackreactor',
   SFDC_OPPTY_RECORD_ID: '012j0000000qVAP',
   SFDC_SELECT_QUERY: `Id, Student__c, Student__r.Name,
   Student__r.Email, Student__r.Secondary_Email__c, Campus_Formatted__c,
