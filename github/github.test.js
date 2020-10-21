@@ -8,11 +8,16 @@ const {
   removeUserFromTeam,
   addUsersToTeam,
   removeUsersFromTeam,
+  getPullRequestsbyRepo,
+  getPullRequestsbyUser,
 } = require('.');
 
 const GITHUB_TEAM_USERNAME = 'paola-test-team';
 const GITHUB_TEST_USER = 'murphpaolatestuser';
 const GITHUB_INVALID_USER = 'notarealuser***';
+const GITHUB_INVALID_REPO = '***not a real repo***';
+const GITHUB_TEST_REPO = 'seip2006-testbuilder';
+const GITHUB_TEST_BRANCH = 'master';
 const HEADERS = { Authorization: `token ${process.env.GITHUB_ACCESS_TOKEN}` };
 
 const addUser = async () => {
@@ -109,5 +114,47 @@ describe('removeUsersFromTeam', () => {
   test('Should return an errror if at least one user could not be removed', async () => {
     const usersWereRemoved = await removeUsersFromTeam(['anthonypecchillo', 'murphgrainger***'], GITHUB_TEAM_USERNAME);
     expect(usersWereRemoved).toContain('Error removing');
+  });
+});
+
+describe('getPullRequestsbyRepo', () => {
+  test('Should return an array of pull requests if successful', async () => {
+    const pullRequests = await getPullRequestsbyRepo(GITHUB_TEST_REPO);
+    expect(pullRequests).toHaveLength(30);
+    expect(pullRequests[0]).toHaveProperty('user');
+    expect(pullRequests[0]).toHaveProperty('created_at');
+  });
+
+  test('Should return a Not Found error if repo cannot be found', async () => {
+    const pullRequests = await getPullRequestsbyRepo(GITHUB_INVALID_REPO);
+    expect(pullRequests).toBe('Not Found');
+  });
+});
+
+describe('getPullRequestsbyUser', () => {
+  test('Should return an array of pull requests if successful', async () => {
+    const pullRequests = await getPullRequestsbyUser(
+      'paola-utils', 'murphgrainger', GITHUB_TEST_BRANCH,
+    );
+    expect(pullRequests).toHaveLength(1);
+    expect(pullRequests[0]).toHaveProperty('user');
+    expect(pullRequests[0].user).toHaveProperty('login');
+    expect(pullRequests[0].user.login).toBe('murphgrainger');
+  });
+
+  test('Should return a Not Found error if repo cannot be found', async () => {
+    const pullRequests = await getPullRequestsbyUser(
+      GITHUB_INVALID_REPO, GITHUB_TEST_USER, GITHUB_TEST_BRANCH,
+    );
+    expect(pullRequests).toBe('Not Found');
+  });
+
+  test('Should return an empty array if no pull requests found for user for branch', async () => {
+    const pullRequests = await getPullRequestsbyUser(
+      GITHUB_TEST_REPO,
+      GITHUB_INVALID_USER,
+      GITHUB_TEST_BRANCH,
+    );
+    expect(pullRequests).toHaveLength(0);
   });
 });

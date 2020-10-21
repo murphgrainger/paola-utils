@@ -110,19 +110,23 @@ exports.getPullRequestsbyRepo = async (repo) => {
       `${GITHUB_API_REPOS}/${repo}/pulls?state=all`,
       { headers },
     );
-    return response.json();
+    const res = await response.json();
+    if (!res.length) throw new Error(res.message);
+    return res;
   } catch (error) {
     return error.message;
   }
 };
 
-exports.getPullRequestsbyUser = async (username, repo, branch) => {
+exports.getPullRequestsbyUser = async (repo, username, branch) => {
   try {
     const response = await fetch(
       `${GITHUB_API_REPOS}/${repo}/pulls?state=all&head=${username}:${branch}`,
       { headers },
     );
-    return response.json();
+    const res = await response.json();
+    if (!res.length) throw new Error(res.message);
+    return res;
   } catch (error) {
     return error.message;
   }
