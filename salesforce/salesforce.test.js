@@ -3,7 +3,7 @@ const jsforce = require('jsforce');
 const { SFDC_SELECT_QUERY, SFDC_OPPTY_RECORD_ID } = require('../constants');
 const { getStudents } = require('.');
 
-const TEST_COURSE_START = '2020-05-11';
+const TEST_COURSE_START = '2020-06-29';
 const TEST_COURSE_TYPE = '12 Week';
 const SFDC_WHERE_QUERY = `RecordTypeId = '${SFDC_OPPTY_RECORD_ID}'
 AND Course_Product__c = 'Web Development'
@@ -52,6 +52,30 @@ describe('getStudents', () => {
       'dateOfDetermination',
       'sfdcContactId',
       'sfdcOpportunityId',
+      'preferredFirstName',
+      'birthdate',
+      'phone',
+      'mailingAdress',
+      'emergencyContactName',
+      'emergencyContactPhone',
+      'emergencyContactRelationship',
+      'tShirtSize',
+      'tShirtFit',
+      'highestDegree',
+      'gender',
+      'race',
+      'ethniciy',
+      'identifyAsLGBTQ',
+      'veteran',
+      'dependantOfVeteran',
+      'usCitizenOrResident',
+      'hoodieSize',
+      'addressWhileInSchool',
+      'allergies',
+      'permanentAddress',
+      'studentFunding',
+      'studentFundingStage',
+      'paymentOptionOnSEA',
     ];
     const students = await getStudents(TEST_COURSE_START, TEST_COURSE_TYPE);
     const actualProps = Object.keys(students[0]);
